@@ -61,6 +61,44 @@
             box-shadow: 0 0 10px #00ff88;
         }
 
+        .config-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .config-section h3 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1em;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -127,21 +165,69 @@
             font-size: 0.9em;
         }
 
-        .interactive-section {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 40px;
-            margin: 40px 0;
-            border: 1px solid rgba(255,255,255,0.2);
+        .pods-list {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            max-height: 600px;
+            overflow-y: auto;
         }
 
-        .button-group {
+        .pod-item {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #00ff88;
+        }
+
+        .pod-item.pending {
+            border-left-color: #ffaa00;
+        }
+
+        .pod-item.failed {
+            border-left-color: #ff4444;
+        }
+
+        .pod-header {
             display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 30px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .pod-name {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .pod-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .pod-status.running {
+            background: #00ff88;
+            color: #1a1a2e;
+        }
+
+        .pod-status.pending {
+            background: #ffaa00;
+            color: #1a1a2e;
+        }
+
+        .pod-status.failed {
+            background: #ff4444;
+            color: white;
+        }
+
+        .pod-details {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 5px;
         }
 
         .btn {
@@ -177,35 +263,30 @@
             transform: scale(1.05);
         }
 
-        .response-box {
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            min-height: 80px;
-            display: none;
-            animation: fadeIn 0.5s ease;
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
 
-        .response-box.active {
-            display: block;
+        .error-message {
+            background: rgba(255,68,68,0.2);
+            border: 1px solid #ff4444;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
         }
 
-        .tech-stack {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin: 40px 0;
-        }
-
-        .tech-item {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            padding: 15px 25px;
-            border-radius: 50px;
-            font-weight: bold;
-            border: 1px solid rgba(255,255,255,0.3);
+        .success-message {
+            background: rgba(0,255,136,0.2);
+            border: 1px solid #00ff88;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
         }
 
         footer {
@@ -238,24 +319,9 @@
             }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
-        }
-
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
         }
 
         @keyframes spin {
@@ -267,6 +333,14 @@
             margin-top: 20px;
             opacity: 0.9;
         }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -275,70 +349,58 @@
             <h1>☁️ Cloud Privé OKD</h1>
             <p class="subtitle">Déployé sur Proxmox | Production Ready</p>
             <div class="status-badge">
-                <span class="status-dot"></span>
-                <span>Système opérationnel</span>
+                <span class="status-dot" id="statusDot"></span>
+                <span id="statusText">Configuration requise</span>
             </div>
             <div id="clock"></div>
         </header>
 
+        <div class="config-section">
+            <h3>🔧 Configuration de l'API OKD</h3>
+            <div class="form-group">
+                <label for="apiUrl">URL de l'API OKD:</label>
+                <input type="text" id="apiUrl" placeholder="https://api.df.lab.mr:6443" 
+                       value="https://api.okd.local:6443">
+            </div>
+            <div class="form-group">
+                <label for="namespace">Namespace:</label>
+                <input type="text" id="namespace" placeholder="default" value="default">
+            </div>
+            <div class="form-group">
+                <label for="token">Token d'accès:</label>
+                <input type="password" id="token" placeholder="Votre token Bearer">
+            </div>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="connectToOKD()">🔗 Connecter à OKD</button>
+                <button class="btn btn-secondary" onclick="refreshPods()">🔄 Rafraîchir</button>
+            </div>
+            <div id="connectionStatus"></div>
+        </div>
+
         <div class="stats-container">
             <div class="stat-box">
-                <span class="stat-number" id="uptime">99.9%</span>
-                <span class="stat-label">Disponibilité</span>
+                <span class="stat-number" id="totalPods">-</span>
+                <span class="stat-label">Pods Total</span>
             </div>
             <div class="stat-box">
-                <span class="stat-number" id="requests">0</span>
-                <span class="stat-label">Requêtes traitées</span>
+                <span class="stat-number" id="runningPods">-</span>
+                <span class="stat-label">Running</span>
             </div>
             <div class="stat-box">
-                <span class="stat-number" id="pods">12</span>
-                <span class="stat-label">Pods actifs</span>
+                <span class="stat-number" id="pendingPods">-</span>
+                <span class="stat-label">Pending</span>
             </div>
             <div class="stat-box">
-                <span class="stat-number" id="response">45ms</span>
-                <span class="stat-label">Temps de réponse</span>
+                <span class="stat-number" id="failedPods">-</span>
+                <span class="stat-label">Failed</span>
             </div>
         </div>
 
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon">🚀</div>
-                <h3>Déploiement Rapide</h3>
-                <p>Infrastructure conteneurisée avec déploiement automatisé via OKD/OpenShift</p>
+        <div class="card">
+            <h3>📦 Liste des Pods</h3>
+            <div id="podsList" class="pods-list">
+                <p style="text-align: center; opacity: 0.6;">Connectez-vous à l'API OKD pour voir les pods</p>
             </div>
-            <div class="card">
-                <div class="card-icon">🔒</div>
-                <h3>Sécurisé</h3>
-                <p>Isolation réseau, RBAC, et chiffrement end-to-end sur infrastructure privée</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">⚡</div>
-                <h3>Haute Performance</h3>
-                <p>Optimisé pour des performances maximales sur Proxmox VE</p>
-            </div>
-        </div>
-
-        <div class="tech-stack">
-            <div class="tech-item">🐳 Docker</div>
-            <div class="tech-item">☸️ Kubernetes</div>
-            <div class="tech-item">🔴 OKD/OpenShift</div>
-            <div class="tech-item">📦 Proxmox VE</div>
-        </div>
-
-        <div class="interactive-section">
-            <h2 style="text-align: center; margin-bottom: 20px;">🎯 Testez l'Infrastructure</h2>
-            <p style="text-align: center; opacity: 0.9; margin-bottom: 30px;">
-                Interagissez avec notre cloud privé en temps réel
-            </p>
-            
-            <div class="button-group">
-                <button class="btn btn-primary" onclick="testAPI()">Tester l'API</button>
-                <button class="btn btn-secondary" onclick="checkHealth()">Vérifier la Santé</button>
-                <button class="btn btn-secondary" onclick="simulateLoad()">Simuler Charge</button>
-                <button class="btn btn-secondary" onclick="showMetrics()">Voir Métriques</button>
-            </div>
-
-            <div id="responseBox" class="response-box"></div>
         </div>
 
         <footer>
@@ -348,6 +410,12 @@
     </div>
 
     <script>
+        let apiConfig = {
+            url: '',
+            namespace: '',
+            token: ''
+        };
+
         // Horloge en temps réel
         function updateClock() {
             const now = new Date();
@@ -363,137 +431,144 @@
         updateClock();
         setInterval(updateClock, 1000);
 
-        // Compteur de requêtes
-        let requestCount = 0;
-        function incrementRequests() {
-            requestCount++;
-            document.getElementById('requests').textContent = requestCount;
+        function showMessage(elementId, message, isError = false) {
+            const el = document.getElementById(elementId);
+            el.innerHTML = `<div class="${isError ? 'error-message' : 'success-message'}">${message}</div>`;
         }
 
-        // Animation des statistiques
-        function animateStat(id, target, suffix = '') {
-            let current = 0;
-            const increment = target / 50;
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                document.getElementById(id).textContent = Math.floor(current) + suffix;
-            }, 20);
+        function updateStatus(connected) {
+            const dot = document.getElementById('statusDot');
+            const text = document.getElementById('statusText');
+            if (connected) {
+                dot.style.background = '#00ff88';
+                dot.style.boxShadow = '0 0 10px #00ff88';
+                text.textContent = 'Connecté à OKD';
+            } else {
+                dot.style.background = '#ff4444';
+                dot.style.boxShadow = '0 0 10px #ff4444';
+                text.textContent = 'Déconnecté';
+            }
         }
 
-        // Test API
-        function testAPI() {
-            incrementRequests();
-            const box = document.getElementById('responseBox');
-            box.innerHTML = '<div class="loading"></div> <span style="margin-left: 10px;">Envoi de la requête API...</span>';
-            box.classList.add('active');
+        async function connectToOKD() {
+            apiConfig.url = document.getElementById('apiUrl').value.trim();
+            apiConfig.namespace = document.getElementById('namespace').value.trim();
+            apiConfig.token = document.getElementById('token').value.trim();
 
-            setTimeout(() => {
-                box.innerHTML = `
-                    <strong>✅ Réponse API reçue</strong><br><br>
-                    <code style="display: block; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 5px; margin-top: 10px;">
-                    {<br>
-                    &nbsp;&nbsp;"status": "success",<br>
-                    &nbsp;&nbsp;"cluster": "okd-production",<br>
-                    &nbsp;&nbsp;"version": "4.15.0",<br>
-                    &nbsp;&nbsp;"nodes": 3,<br>
-                    &nbsp;&nbsp;"timestamp": "${new Date().toISOString()}"<br>
-                    }
-                    </code>
-                `;
-            }, 1500);
+            if (!apiConfig.url || !apiConfig.namespace || !apiConfig.token) {
+                showMessage('connectionStatus', '❌ Veuillez remplir tous les champs', true);
+                return;
+            }
+
+            showMessage('connectionStatus', '<div class="loading"></div> Connexion en cours...');
+
+            try {
+                await fetchPods();
+                showMessage('connectionStatus', '✅ Connecté avec succès à OKD!');
+                updateStatus(true);
+            } catch (error) {
+                showMessage('connectionStatus', `❌ Erreur de connexion: ${error.message}`, true);
+                updateStatus(false);
+            }
         }
 
-        // Vérification de santé
-        function checkHealth() {
-            incrementRequests();
-            const box = document.getElementById('responseBox');
-            box.innerHTML = '<div class="loading"></div> <span style="margin-left: 10px;">Vérification des composants...</span>';
-            box.classList.add('active');
-
-            setTimeout(() => {
-                box.innerHTML = `
-                    <strong>🏥 État de Santé du Cluster</strong><br><br>
-                    ✅ API Server: Opérationnel<br>
-                    ✅ etcd: Opérationnel (3/3 nodes)<br>
-                    ✅ Scheduler: Opérationnel<br>
-                    ✅ Controller Manager: Opérationnel<br>
-                    ✅ Nodes: 3/3 Ready<br>
-                    ✅ Pods: 12/12 Running<br><br>
-                    <span style="color: #00ff88;">⚡ Tous les systèmes fonctionnent normalement</span>
-                `;
-            }, 2000);
-        }
-
-        // Simulation de charge
-        function simulateLoad() {
-            incrementRequests();
-            const box = document.getElementById('responseBox');
-            box.innerHTML = '<div class="loading"></div> <span style="margin-left: 10px;">Simulation de charge en cours...</span>';
-            box.classList.add('active');
-
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += 10;
-                if (progress <= 100) {
-                    box.innerHTML = `
-                        <strong>📊 Test de Charge</strong><br><br>
-                        Progression: ${progress}%<br>
-                        <div style="background: rgba(0,0,0,0.3); height: 20px; border-radius: 10px; overflow: hidden; margin-top: 10px;">
-                            <div style="background: linear-gradient(90deg, #00ff88, #00d4ff); height: 100%; width: ${progress}%; transition: width 0.3s ease;"></div>
-                        </div>
-                    `;
-                } else {
-                    clearInterval(interval);
-                    box.innerHTML = `
-                        <strong>✅ Test de Charge Terminé</strong><br><br>
-                        📈 Requêtes/sec: 1,250<br>
-                        ⚡ Latence moyenne: 45ms<br>
-                        💾 Utilisation CPU: 34%<br>
-                        💽 Utilisation RAM: 52%<br>
-                        🌐 Bande passante: 125 Mbps<br><br>
-                        <span style="color: #00ff88;">Performance excellente !</span>
-                    `;
-                }
-            }, 300);
-        }
-
-        // Afficher métriques
-        function showMetrics() {
-            incrementRequests();
-            const box = document.getElementById('responseBox');
-            box.classList.add('active');
+        async function fetchPods() {
+            const url = `${apiConfig.url}/api/v1/namespaces/${apiConfig.namespace}/pods`;
             
-            box.innerHTML = `
-                <strong>📊 Métriques du Cluster</strong><br><br>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left;">
-                    <div>
-                        <strong>Compute:</strong><br>
-                        • CPU: 34% (12 cores)<br>
-                        • RAM: 52% (64 GB)<br>
-                        • Storage: 1.2 TB / 4 TB
-                    </div>
-                    <div>
-                        <strong>Réseau:</strong><br>
-                        • Ingress: 125 Mbps<br>
-                        • Egress: 89 Mbps<br>
-                        • Connexions: 1,456
-                    </div>
-                </div>
-                <br>
-                <strong>Conteneurs:</strong> 12 running, 0 pending, 0 failed<br>
-                <strong>Services:</strong> 8 actifs<br>
-                <strong>Uptime:</strong> 45 jours, 12 heures
-            `;
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${apiConfig.token}`,
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            displayPods(data.items);
+            updateStats(data.items);
         }
 
-        // Animation initiale des stats
-        window.addEventListener('load', () => {
-            setTimeout(() => animateStat('pods', 12), 500);
-        });
+        function displayPods(pods) {
+            const container = document.getElementById('podsList');
+            
+            if (!pods || pods.length === 0) {
+                container.innerHTML = '<p style="text-align: center; opacity: 0.6;">Aucun pod trouvé dans ce namespace</p>';
+                return;
+            }
+
+            let html = '';
+            pods.forEach(pod => {
+                const status = pod.status.phase.toLowerCase();
+                const name = pod.metadata.name;
+                const namespace = pod.metadata.namespace;
+                const created = new Date(pod.metadata.creationTimestamp).toLocaleString('fr-FR');
+                const node = pod.spec.nodeName || 'N/A';
+                const ip = pod.status.podIP || 'N/A';
+                
+                // Compter les conteneurs
+                const containers = pod.spec.containers.length;
+                const readyContainers = pod.status.containerStatuses 
+                    ? pod.status.containerStatuses.filter(c => c.ready).length 
+                    : 0;
+
+                html += `
+                    <div class="pod-item ${status}">
+                        <div class="pod-header">
+                            <span class="pod-name">📦 ${name}</span>
+                            <span class="pod-status ${status}">${status.toUpperCase()}</span>
+                        </div>
+                        <div class="pod-details">
+                            <strong>Namespace:</strong> ${namespace}<br>
+                            <strong>Node:</strong> ${node}<br>
+                            <strong>IP:</strong> ${ip}<br>
+                            <strong>Conteneurs:</strong> ${readyContainers}/${containers} ready<br>
+                            <strong>Créé:</strong> ${created}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function updateStats(pods) {
+            const total = pods.length;
+            const running = pods.filter(p => p.status.phase === 'Running').length;
+            const pending = pods.filter(p => p.status.phase === 'Pending').length;
+            const failed = pods.filter(p => p.status.phase === 'Failed').length;
+
+            document.getElementById('totalPods').textContent = total;
+            document.getElementById('runningPods').textContent = running;
+            document.getElementById('pendingPods').textContent = pending;
+            document.getElementById('failedPods').textContent = failed;
+        }
+
+        async function refreshPods() {
+            if (!apiConfig.url || !apiConfig.token) {
+                showMessage('connectionStatus', '❌ Connectez-vous d\'abord à OKD', true);
+                return;
+            }
+
+            try {
+                showMessage('connectionStatus', '<div class="loading"></div> Rafraîchissement...');
+                await fetchPods();
+                showMessage('connectionStatus', '✅ Données rafraîchies!');
+            } catch (error) {
+                showMessage('connectionStatus', `❌ Erreur: ${error.message}`, true);
+                updateStatus(false);
+            }
+        }
+
+        // Auto-refresh toutes les 30 secondes si connecté
+        setInterval(() => {
+            if (apiConfig.url && apiConfig.token) {
+                refreshPods();
+            }
+        }, 30000);
     </script>
 </body>
 </html>
