@@ -4,307 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SelamPay - Votre meilleur choix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
-            overflow-x: hidden;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 1000;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #2c3e50;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #3498db;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            overflow: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.3);
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            color: white;
-            padding: 2rem;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero h1 span {
-            display: block;
-            font-weight: 300;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1.2s ease;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.3s;
-            animation: fadeInUp 1.4s ease;
-        }
-
-        .btn:hover {
-            background: #2980b9;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        /* Section */
-        section {
-            padding: 5rem 5%;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #2c3e50;
-        }
-
-        /* Mission Section */
-        .mission {
-            background: #f8f9fa;
-        }
-
-        .mission-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .mission-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .mission-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .mission-card h3 {
-            color: #3498db;
-            margin-bottom: 1rem;
-        }
-
-        /* Products Section */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
-
-        .product-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .product-img {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: white;
-        }
-
-        .product-content {
-            padding: 1.5rem;
-        }
-
-        .product-content h3 {
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Stats Section */
-        .stats {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .stat-item h2 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            font-size: 1.2rem;
-        }
-
-        /* Services Section */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            text-align: center;
-            padding: 2rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
-
-        .service-card:hover {
-            background: #3498db;
-            color: white;
-            transform: translateY(-10px);
-        }
-
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #3498db;
-        }
-
-        .service-card:hover .service-icon {
-            color: white;
-        }
-
-        /* Contact Section */
-        .contact {
-            background: #f8f9fa;
-        }
-
-        .contact-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-            text-align: center;
-        }
-
-        .contact-item {
-            padding: 1.5rem;
-        }
-
-        .contact-item h4 {
-            color: #3498db;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Footer */
-        footer {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 2rem 5%;
-        }
-
-        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -315,279 +16,390 @@
                 transform: translateY(0);
             }
         }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        nav {
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+        }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            section {
-                padding: 3rem 5%;
-            }
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            background: white;
+            padding: 20px;
         }
     </style>
 </head>
-<body>
+<body class="font-sans antialiased">
     <!-- Navigation -->
-    <nav>
-        <div class="logo">SelamPay</div>
-        <ul class="nav-links">
-            <li><a href="#accueil">Accueil</a></li>
-            <li><a href="#mission">Mission</a></li>
-            <li><a href="#produits">Produits</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+    <nav id="navbar" class="fixed w-full top-0 z-50 py-4 transition-all duration-300">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="https://selampay.com/img/logo/logo-l.png" alt="SelamPay Logo" class="h-10">
+            </div>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#accueil" class="text-gray-700 hover:text-green-600 transition">Accueil</a>
+                <a href="#mission" class="text-gray-700 hover:text-green-600 transition">Mission</a>
+                <a href="#produits" class="text-gray-700 hover:text-green-600 transition">Produits</a>
+                <a href="#services" class="text-gray-700 hover:text-green-600 transition">Services</a>
+                <a href="#contact" class="text-gray-700 hover:text-green-600 transition">Contact</a>
+            </div>
+            
+            <button id="menuBtn" class="md:hidden text-gray-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero" id="accueil">
-        <div class="hero-content">
-            <h1>
-                Votre <span>meilleur choix</span>
-                <span>sécurité</span>
-                <span>créativité</span>
-            </h1>
-            <p>Nous utilisons les dernières technologies pour améliorer vos projets</p>
-            <a href="#mission" class="btn">Voir Plus</a>
+    <section id="accueil" class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-20 left-20 w-72 h-72 bg-green-500 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 right-20 w-96 h-96 bg-emerald-500 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 py-20 relative z-10">
+            <div class="text-center fade-in-up">
+                <h1 class="text-6xl md:text-7xl font-bold mb-6">
+                    Votre <span class="gradient-text">meilleur choix</span>
+                </h1>
+                <h2 class="text-4xl md:text-5xl font-semibold mb-4 text-gray-700">
+                    <span class="gradient-text">Sécurité</span> & <span class="gradient-text">Créativité</span>
+                </h2>
+                <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                    Nous utilisons les dernières technologies pour améliorer vos projets
+                </p>
+                <a href="#mission" class="btn-primary text-white px-8 py-4 rounded-full inline-block font-semibold">
+                    Voir Plus
+                </a>
+            </div>
         </div>
     </section>
 
     <!-- Mission Section -->
-    <section class="mission" id="mission">
-        <h2 class="section-title">Notre Mission</h2>
-        <div class="mission-content">
-            <div class="mission-card">
-                <h3>Selam</h3>
-                <p>Nous fournissons des solutions créatives à des clients du monde entier. Nous développons des outils évolutifs intelligents personnalisés et selon les besoins.</p>
-            </div>
-            <div class="mission-card">
-                <h3>Développement</h3>
-                <p>Selam est une entreprise œuvrant dans des domaines diversifiés allant du développement de solutions bureautiques et mobiles au support et à la formation.</p>
-            </div>
-            <div class="mission-card">
-                <h3>Vision</h3>
-                <p>Notre ambition est d'être reconnus comme des développeurs de solutions à valeur ajoutée qui offrent des moyens d'aide à la décision.</p>
+    <section id="mission" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in-up">
+                    <h2 class="text-4xl font-bold mb-6 gradient-text">Selam</h2>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        Nous fournissons des solutions créatives à des clients du monde entier. 
+                        Nous développons des outils évolutifs intelligents personnalisés selon les besoins.
+                    </p>
+                    <h3 class="text-3xl font-bold mb-4 text-gray-800">Notre Mission</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Composée de jeunes créatifs et efficaces, notre équipe est à votre disposition 
+                        pour vous proposer des solutions efficaces et maniables. Notre stratégie est de 
+                        développer des outils évolutifs et intelligents grâce à la nouvelle technologie.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Products Section -->
-    <section id="produits">
-        <h2 class="section-title">Nos Produits</h2>
-        <div class="products-grid">
-            <div class="product-card">
-                <div class="product-img">💳</div>
-                <div class="product-content">
-                    <h3>SelamPay</h3>
-                    <p>Solution de paiement utilisée actuellement dans la solution de digitalisation des titres de transport de la STP</p>
+    <!-- Produits Section -->
+    <section id="produits" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16 gradient-text">Nos Produits</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <img src="https://selampay.com/img/produit/1.jpg" alt="SelamPay" class="product-image">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-800">SelamPay</h3>
+                        <p class="text-gray-600">
+                            Solution de paiement utilisée actuellement dans la digitalisation des titres de transport
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="product-card">
-                <div class="product-img">🐪</div>
-                <div class="product-content">
-                    <h3>Eddeyar</h3>
-                    <p>Application mobile contenant les différentes marques de chameaux et leurs propriétaires</p>
+                
+                <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <img src="https://selampay.com/img/produit/2.jpg" alt="Eddeyar" class="product-image">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-800">Eddeyar</h3>
+                        <p class="text-gray-600">
+                            Application mobile contenant les différentes marques de chameaux et leurs propriétaires
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="product-card">
-                <div class="product-img">🎫</div>
-                <div class="product-content">
-                    <h3>E-quitence</h3>
-                    <p>Première solution de paiement de vignette par les moyens de paiement (Bankily, Masrvi)</p>
+                
+                <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <img src="https://selampay.com/img/produit/3.jpg" alt="E-quitence" class="product-image">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-800">E-quitence</h3>
+                        <p class="text-gray-600">
+                            Première solution de paiement de vignette par les moyens de paiement numériques
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="product-card">
-                <div class="product-img">🚌</div>
-                <div class="product-content">
-                    <h3>E-Ticket</h3>
-                    <p>Application destinée aux clients facilitant leur accès aux différentes offres et l'achat des titres de transport</p>
+                
+                <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <img src="https://selampay.com/img/produit/4.png" alt="E-Ticket" class="product-image">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-800">E-Ticket</h3>
+                        <p class="text-gray-600">
+                            Application facilitant l'accès aux offres et l'achat des titres de transport
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="product-card">
-                <div class="product-img">📱</div>
-                <div class="product-content">
-                    <h3>Basme</h3>
-                    <p>Système de pointage mobile simple à utiliser prenant en charge différents types de pointage</p>
+                
+                <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <img src="https://selampay.com/img/produit/5.png" alt="Basme" class="product-image">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-800">Basme</h3>
+                        <p class="text-gray-600">
+                            Système de pointage mobile prenant en charge NFC, Image et Empreinte
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <img src="data:image/png;base64,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" alt="Basme" class="product-image">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-800">i-Maurritanie</h3>
+                        <p class="text-gray-600">
+                            Application qui relie les citoyens des adminstrations 
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Stats Section -->
-    <section class="stats">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <h2>20</h2>
-                <p>Clients</p>
-            </div>
-            <div class="stat-item">
-                <h2>23</h2>
-                <p>Expériences</p>
-            </div>
-            <div class="stat-item">
-                <h2>15</h2>
-                <p>L'équipe</p>
-            </div>
-            <div class="stat-item">
-                <h2>9M+</h2>
-                <p>Lignes de code</p>
+    <section class="py-20 bg-gradient-to-r from-green-600 to-emerald-600 text-white">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="fade-in-up">
+                    <div class="text-5xl font-bold mb-2">20+</div>
+                    <div class="text-xl">Clients</div>
+                </div>
+                <div class="fade-in-up">
+                    <div class="text-5xl font-bold mb-2">23+</div>
+                    <div class="text-xl">Années d'expérience</div>
+                </div>
+                <div class="fade-in-up">
+                    <div class="text-5xl font-bold mb-2">15+</div>
+                    <div class="text-xl">Membres d'équipe</div>
+                </div>
+                <div class="fade-in-up">
+                    <div class="text-5xl font-bold mb-2">9M+</div>
+                    <div class="text-xl">Lignes de code</div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services">
-        <h2 class="section-title">Nos Services</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">📱</div>
-                <h3>Android</h3>
-                <p>Développement d'applications mobiles Android avec les dernières technologies et designs</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🍎</div>
-                <h3>App iOS</h3>
-                <p>Développement d'applications mobiles iOS avec les dernières technologies et designs</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🌐</div>
-                <h3>App Web</h3>
-                <p>Tous les services web à partir d'applications et d'outils de conceptions modernes</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">📊</div>
-                <h3>Analyse</h3>
-                <p>Analyse des données pour l'amélioration et le développement du niveau de performance</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🤖</div>
-                <h3>Intelligence Artificielle</h3>
-                <p>Applications plus fiables et puissantes pour aider les utilisateurs à prendre des décisions</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🔒</div>
-                <h3>Sécurité</h3>
-                <p>Dotation de nos applications des derniers systèmes de sécurité</p>
+    <section id="services" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16 gradient-text">Nos Services</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-hover p-8 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50">
+                    <div class="text-5xl mb-4">📱</div>
+                    <h3 class="text-2xl font-bold mb-3 text-gray-800">Android</h3>
+                    <p class="text-gray-600">
+                        Applications mobiles sur Android avec les dernières technologies et designs
+                    </p>
+                </div>
+                
+                <div class="card-hover p-8 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50">
+                    <div class="text-5xl mb-4">🍎</div>
+                    <h3 class="text-2xl font-bold mb-3 text-gray-800">App iOS</h3>
+                    <p class="text-gray-600">
+                        Applications mobiles sur iOS avec les dernières technologies et designs
+                    </p>
+                </div>
+                
+                <div class="card-hover p-8 rounded-2xl bg-gradient-to-br from-teal-50 to-green-50">
+                    <div class="text-5xl mb-4">🌐</div>
+                    <h3 class="text-2xl font-bold mb-3 text-gray-800">App Web</h3>
+                    <p class="text-gray-600">
+                        Services web complets avec applications et outils de conception modernes
+                    </p>
+                </div>
+                
+                <div class="card-hover p-8 rounded-2xl bg-gradient-to-br from-lime-50 to-green-50">
+                    <div class="text-5xl mb-4">📊</div>
+                    <h3 class="text-2xl font-bold mb-3 text-gray-800">Analyse</h3>
+                    <p class="text-gray-600">
+                        Analyse de données pour l'amélioration de la performance des applications
+                    </p>
+                </div>
+                
+                <div class="card-hover p-8 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50">
+                    <div class="text-5xl mb-4">🤖</div>
+                    <h3 class="text-2xl font-bold mb-3 text-gray-800">IA</h3>
+                    <p class="text-gray-600">
+                        Intelligence artificielle pour des applications plus fiables et puissantes
+                    </p>
+                </div>
+                
+                <div class="card-hover p-8 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50">
+                    <div class="text-5xl mb-4">🔒</div>
+                    <h3 class="text-2xl font-bold mb-3 text-gray-800">Sécurité</h3>
+                    <p class="text-gray-600">
+                        Derniers systèmes de sécurité pour protéger vos applications
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <h2 class="section-title">Contactez-nous</h2>
-        <div class="contact-content">
-            <form id="contactForm">
-                <div class="form-group">
-                    <input type="text" placeholder="Votre nom" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" placeholder="Votre email" required>
-                </div>
-                <div class="form-group">
-                    <textarea placeholder="Votre message" required></textarea>
-                </div>
-                <button type="submit" class="btn">Envoyer</button>
-            </form>
-
-            <div class="contact-info">
-                <div class="contact-item">
-                    <h4>Téléphone</h4>
-                    <p>+222 32 22 91 34</p>
-                </div>
-                <div class="contact-item">
-                    <h4>Email</h4>
-                    <p>contact@selampay.com</p>
-                </div>
-                <div class="contact-item">
-                    <h4>Adresse</h4>
-                    <p>Zone I & C Carrefour Madrid</p>
+    <section id="contact" class="py-20 bg-gradient-to-br from-green-600 to-emerald-600 text-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-5xl font-bold text-center mb-4">Démarrer Votre Projet</h2>
+                <p class="text-center text-xl mb-12 opacity-90">Contactez-nous pour discuter de votre projet</p>
+                
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <form class="space-y-6">
+                            <input type="text" placeholder="Nom" class="w-full px-6 py-4 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-white">
+                            <input type="email" placeholder="Email" class="w-full px-6 py-4 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-white">
+                            <textarea placeholder="Message" rows="5" class="w-full px-6 py-4 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-white"></textarea>
+                            <button type="submit" class="w-full bg-white text-green-600 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition">
+                                Envoyer
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="text-3xl">📞</div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-2">Téléphone</h4>
+                                <p>+222 32 22 91 34</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="text-3xl">📍</div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-2">Adresse</h4>
+                                <p>Zone l & C Carrefour Madrid</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="text-3xl">✉️</div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-2">Email</h4>
+                                <p>contact@Selampay.com</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <p>© Selam Tous Droits Réservés.</p>
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <img src="https://selampay.com/img/logo/logo-l.png" alt="SelamPay" class="h-8 mx-auto mb-4 brightness-0 invert">
+            <p class="text-gray-400">© Selam Tous Droits Réservés.</p>
+        </div>
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
 
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Message envoyé avec succès!');
-            this.reset();
-        });
-
-        // Scroll animations
+        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+            rootMargin: '0px 0px -50px 0px'
         };
 
-        const observer = new IntersectionObserver(function(entries) {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 1s ease forwards';
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.mission-card, .product-card, .service-card').forEach(el => {
+        document.querySelectorAll('.card-hover, .fade-in-up').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
             observer.observe(el);
-        });
-
-        // Counter animation for stats
-        function animateCounter(element, target) {
-            let current = 0;
-            const increment = target / 50;
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    element.textContent = target.toLocaleString();
-                    clearInterval(timer);
-                } else {
-                    element.textContent = Math.floor(current).toLocaleString();
-                }
-            }, 30);
-        }
-
-        const statsObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const h2 = entry.target.querySelector('h2');
-                    const text = h2.textContent;
-                    const number = parseInt(text.replace(/\D/g, ''));
-                    if (number) {
-                        animateCounter(h2, number);
-                    }
-                    statsObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        document.querySelectorAll('.stat-item').forEach(el => {
-            statsObserver.observe(el);
         });
     </script>
 </body>
