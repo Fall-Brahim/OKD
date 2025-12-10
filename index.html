@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard OKD - Vue Cluster</title>
+    <title>SelamPay - Votre meilleur choix</title>
     <style>
         * {
             margin: 0;
@@ -13,284 +13,302 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #ffffff;
+            color: #333;
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            text-align: center;
-            padding: 40px 20px 30px;
-            animation: fadeInDown 1s ease;
-        }
-
-        h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .subtitle {
-            font-size: 1.2em;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-
-        .status-badge {
-            display: inline-flex;
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            background: rgba(255,255,255,0.2);
-            padding: 10px 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 span {
+            display: block;
+            font-weight: 300;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
             border-radius: 50px;
-            backdrop-filter: blur(10px);
-            animation: pulse 2s infinite;
+            transition: all 0.3s;
+            animation: fadeInUp 1.4s ease;
         }
 
-        .status-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            box-shadow: 0 0 10px;
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        .status-dot.connected {
-            background: #00ff88;
-            box-shadow: 0 0 10px #00ff88;
+        /* Section */
+        section {
+            padding: 5rem 5%;
         }
 
-        .status-dot.error {
-            background: #ff4444;
-            box-shadow: 0 0 10px #ff4444;
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2c3e50;
         }
 
-        .status-dot.loading {
-            background: #ffaa00;
-            box-shadow: 0 0 10px #ffaa00;
+        /* Mission Section */
+        .mission {
+            background: #f8f9fa;
+        }
+
+        .mission-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .mission-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .mission-card h3 {
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+
+        /* Products Section */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-content h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-            margin: 30px 0;
-        }
-
-        .stat-box {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 10px;
-            padding: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: transform 0.3s ease;
         }
 
-        .stat-box:hover {
-            transform: translateY(-5px);
+        .stat-item h2 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
         }
 
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #00ff88;
-            display: block;
-            margin-bottom: 5px;
+        .stat-item p {
+            font-size: 1.2rem;
         }
 
-        .stat-label {
-            opacity: 0.8;
-            font-size: 0.9em;
-        }
-
-        .section {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 25px;
-            margin: 20px 0;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .section h2 {
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .items-grid {
+        /* Services Section */
+        .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
         }
 
-        .item-card {
-            background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #00ff88;
-            transition: transform 0.2s ease;
-        }
-
-        .item-card:hover {
-            transform: translateX(5px);
-            background: rgba(255,255,255,0.15);
-        }
-
-        .item-card.pending {
-            border-left-color: #ffaa00;
-        }
-
-        .item-card.failed {
-            border-left-color: #ff4444;
-        }
-
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .item-name {
-            font-weight: bold;
-            font-size: 1.05em;
-        }
-
-        .badge {
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.8em;
-            font-weight: bold;
-        }
-
-        .badge.success {
-            background: #00ff88;
-            color: #1a1a2e;
-        }
-
-        .badge.warning {
-            background: #ffaa00;
-            color: #1a1a2e;
-        }
-
-        .badge.error {
-            background: #ff4444;
-            color: white;
-        }
-
-        .badge.info {
-            background: #00d4ff;
-            color: #1a1a2e;
-        }
-
-        .item-details {
-            font-size: 0.85em;
-            opacity: 0.8;
-            margin-top: 5px;
-            line-height: 1.5;
-        }
-
-        .loading-container {
+        .service-card {
             text-align: center;
-            padding: 40px;
-        }
-
-        .loading {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255,255,255,0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        .error-box {
-            background: rgba(255,68,68,0.2);
-            border: 2px solid #ff4444;
-            padding: 20px;
+            padding: 2rem;
+            background: white;
             border-radius: 10px;
-            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-10px);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #3498db;
+        }
+
+        .service-card:hover .service-icon {
+            color: white;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #f8f9fa;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
             text-align: center;
         }
 
-        .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 50px;
-            font-size: 0.95em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 2px solid white;
+        .contact-item {
+            padding: 1.5rem;
         }
 
-        .btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: scale(1.05);
+        .contact-item h4 {
+            color: #3498db;
+            margin-bottom: 0.5rem;
         }
 
-        .refresh-controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-
+        /* Footer */
         footer {
+            background: #2c3e50;
+            color: white;
             text-align: center;
-            padding: 30px 20px;
-            margin-top: 40px;
-            opacity: 0.8;
-            border-top: 1px solid rgba(255,255,255,0.2);
+            padding: 2rem 5%;
         }
 
-        #clock {
-            font-size: 1em;
-            margin-top: 15px;
-            opacity: 0.8;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 12px;
-        }
-
-        .project-card {
-            background: rgba(255,255,255,0.1);
-            padding: 12px;
-            border-radius: 8px;
-            border-left: 4px solid #00d4ff;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .project-card:hover {
-            background: rgba(255,255,255,0.15);
-            transform: translateX(5px);
-        }
-
-        .project-card.active {
-            background: rgba(0,255,136,0.2);
-            border-left-color: #00ff88;
-        }
-
-        @keyframes fadeInDown {
+        /* Animations */
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -298,448 +316,278 @@
             }
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 3rem 5%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>☁️ Dashboard OKD Cluster</h1>
-            <p class="subtitle">Vue d'ensemble en temps réel</p>
-            <div class="status-badge">
-                <span class="status-dot loading" id="statusDot"></span>
-                <span id="statusText">Chargement...</span>
-            </div>
-            <div id="clock"></div>
-        </header>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">SelamPay</div>
+        <ul class="nav-links">
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#mission">Mission</a></li>
+            <li><a href="#produits">Produits</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-        <div class="refresh-controls">
-            <button class="btn" onclick="loadAllData()">🔄 Rafraîchir tout</button>
-            <button class="btn" onclick="toggleAutoRefresh()">
-                <span id="autoRefreshBtn">⏸️ Auto-refresh: ON</span>
-            </button>
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="hero-content">
+            <h1>
+                Votre <span>meilleur choix</span>
+                <span>sécurité</span>
+                <span>créativité</span>
+            </h1>
+            <p>Nous utilisons les dernières technologies pour améliorer vos projets</p>
+            <a href="#mission" class="btn">Voir Plus</a>
         </div>
+    </section>
 
-        <div id="errorContainer"></div>
-
-        <!-- Statistiques globales -->
-        <div class="stats-grid" id="statsGrid">
-            <div class="stat-box">
-                <span class="stat-number" id="totalNodes">-</span>
-                <span class="stat-label">⚙️ Nodes</span>
+    <!-- Mission Section -->
+    <section class="mission" id="mission">
+        <h2 class="section-title">Notre Mission</h2>
+        <div class="mission-content">
+            <div class="mission-card">
+                <h3>Selam</h3>
+                <p>Nous fournissons des solutions créatives à des clients du monde entier. Nous développons des outils évolutifs intelligents personnalisés et selon les besoins.</p>
             </div>
-            <div class="stat-box">
-                <span class="stat-number" id="totalProjects">-</span>
-                <span class="stat-label">📁 Projets</span>
+            <div class="mission-card">
+                <h3>Développement</h3>
+                <p>Selam est une entreprise œuvrant dans des domaines diversifiés allant du développement de solutions bureautiques et mobiles au support et à la formation.</p>
             </div>
-            <div class="stat-box">
-                <span class="stat-number" id="totalPods">-</span>
-                <span class="stat-label">📦 Pods Total</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-number" id="runningPods">-</span>
-                <span class="stat-label">✅ Running</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-number" id="pendingPods">-</span>
-                <span class="stat-label">⏳ Pending</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-number" id="failedPods">-</span>
-                <span class="stat-label">❌ Failed</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-number" id="totalDeployments">-</span>
-                <span class="stat-label">🚀 Deployments</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-number" id="totalServices">-</span>
-                <span class="stat-label">🌐 Services</span>
+            <div class="mission-card">
+                <h3>Vision</h3>
+                <p>Notre ambition est d'être reconnus comme des développeurs de solutions à valeur ajoutée qui offrent des moyens d'aide à la décision.</p>
             </div>
         </div>
+    </section>
 
-        <!-- Projets/Namespaces -->
-        <div class="section">
-            <h2>📁 Projets/Namespaces</h2>
-            <div id="projectsList" class="projects-grid">
-                <div class="loading-container"><div class="loading"></div></div>
+    <!-- Products Section -->
+    <section id="produits">
+        <h2 class="section-title">Nos Produits</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-img">💳</div>
+                <div class="product-content">
+                    <h3>SelamPay</h3>
+                    <p>Solution de paiement utilisée actuellement dans la solution de digitalisation des titres de transport de la STP</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">🐪</div>
+                <div class="product-content">
+                    <h3>Eddeyar</h3>
+                    <p>Application mobile contenant les différentes marques de chameaux et leurs propriétaires</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">🎫</div>
+                <div class="product-content">
+                    <h3>E-quitence</h3>
+                    <p>Première solution de paiement de vignette par les moyens de paiement (Bankily, Masrvi)</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">🚌</div>
+                <div class="product-content">
+                    <h3>E-Ticket</h3>
+                    <p>Application destinée aux clients facilitant leur accès aux différentes offres et l'achat des titres de transport</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">📱</div>
+                <div class="product-content">
+                    <h3>Basme</h3>
+                    <p>Système de pointage mobile simple à utiliser prenant en charge différents types de pointage</p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Pods -->
-        <div class="section">
-            <h2>📦 Pods (Tous les namespaces)</h2>
-            <div id="podsList" class="items-grid">
-                <div class="loading-container"><div class="loading"></div></div>
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h2>20</h2>
+                <p>Clients</p>
+            </div>
+            <div class="stat-item">
+                <h2>23</h2>
+                <p>Expériences</p>
+            </div>
+            <div class="stat-item">
+                <h2>15</h2>
+                <p>L'équipe</p>
+            </div>
+            <div class="stat-item">
+                <h2>9M+</h2>
+                <p>Lignes de code</p>
             </div>
         </div>
+    </section>
 
-        <!-- Deployments -->
-        <div class="section">
-            <h2>🚀 Deployments</h2>
-            <div id="deploymentsList" class="items-grid">
-                <div class="loading-container"><div class="loading"></div></div>
+    <!-- Services Section -->
+    <section id="services">
+        <h2 class="section-title">Nos Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">📱</div>
+                <h3>Android</h3>
+                <p>Développement d'applications mobiles Android avec les dernières technologies et designs</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🍎</div>
+                <h3>App iOS</h3>
+                <p>Développement d'applications mobiles iOS avec les dernières technologies et designs</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🌐</div>
+                <h3>App Web</h3>
+                <p>Tous les services web à partir d'applications et d'outils de conceptions modernes</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Analyse</h3>
+                <p>Analyse des données pour l'amélioration et le développement du niveau de performance</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🤖</div>
+                <h3>Intelligence Artificielle</h3>
+                <p>Applications plus fiables et puissantes pour aider les utilisateurs à prendre des décisions</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🔒</div>
+                <h3>Sécurité</h3>
+                <p>Dotation de nos applications des derniers systèmes de sécurité</p>
             </div>
         </div>
+    </section>
 
-        <!-- Services -->
-        <div class="section">
-            <h2>🌐 Services</h2>
-            <div id="servicesList" class="items-grid">
-                <div class="loading-container"><div class="loading"></div></div>
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Contactez-nous</h2>
+        <div class="contact-content">
+            <form id="contactForm">
+                <div class="form-group">
+                    <input type="text" placeholder="Votre nom" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Votre email" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Votre message" required></textarea>
+                </div>
+                <button type="submit" class="btn">Envoyer</button>
+            </form>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h4>Téléphone</h4>
+                    <p>+222 32 22 91 34</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Email</h4>
+                    <p>contact@selampay.com</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Adresse</h4>
+                    <p>Zone I & C Carrefour Madrid</p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <footer>
-            <p><strong>Dashboard OKD - Monitoring Cluster</strong></p>
-            <p style="margin-top: 10px;">Mise à jour automatique toutes les 30 secondes</p>
-        </footer>
-    </div>
+    <!-- Footer -->
+    <footer>
+        <p>© Selam Tous Droits Réservés.</p>
+    </footer>
 
     <script>
-        // ⚠️ CONFIGURATION - REMPLACEZ CES VALEURS
-        const CONFIG = {
-            apiUrl: 'https://api.df.lab.mr:6443',
-            token: 'eyJhbGciOiJSUzI1NiIsImtpZCI6InhXaXdJMnhxbG9xVVpFb0NlVS1kSmFteUhRSkJtcjJHcHpPTVI5dmdnNzAifQ.eyJhdWQiOlsiaHR0cHM6Ly9rdWJlcm5ldGVzLmRlZmF1bHQuc3ZjIl0sImV4cCI6NDkxODY2Mzg0OCwiaWF0IjoxNzY1MDYzODQ4LCJpc3MiOiJodHRwczovL2t1YmVybmV0ZXMuZGVmYXVsdC5zdmMiLCJrdWJlcm5ldGVzLmlvIjp7Im5hbWVzcGFjZSI6ImRhc2hib2FyZC1wdWJsaWMiLCJzZXJ2aWNlYWNjb3VudCI6eyJuYW1lIjoiY2x1c3Rlci12aWV3ZXIiLCJ1aWQiOiI2MmM4YmEyNi04M2EzLTQwOWMtYjRhNi00ZDdmYWU3NTZlOTEifX0sIm5iZiI6MTc2NTA2Mzg0OCwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50OmRhc2hib2FyZC1wdWJsaWM6Y2x1c3Rlci12aWV3ZXIifQ.0nIxYVU-iS9W8HE9SHgY68_8b7SS_PTS6eBb4r-2vGOouX01loFQHKMp5zOL5mTcUO5PYB984Ay8Mu-5WNla9Zx_EWfjwwxclCTpomV9KkY-wPxRUrc-RRglDqqaYo66b2uiVaMYpvpYMSEq-Zx2QcvzwfIF1qPz4tLECfGa3LiDQsMr69_US9bCPTFejrXlhg2zZnum2-TBnmcW2nwce4kHC-DNsQrtqHhNcf1CZrZzOCTL3Qioh_bKhu1AYy43PJq_46EK2dgdih0moD5qCJLoXvN1Yz0zdS8WeCWnCKSerU5QjdHwE7lXP8AeopTYvcDxTC5ZTfkq3CcH7YdbL_vrkwWlCqOGXI1j-Kr1Mj3XDaFEh7jukeJomKjdVMoef0HwSMtZbmA6qNwrr6Ilo0jNRr1Dc73GkfTx_kAAq-Z9OBqof5uU10Y3HLJRa2CDTAjjP-YqndSxQmbOQfDKkGEmUj1MB_8gz207GGgruJVM3KIMEO7hXqIseDpr8GXT0UnhZURbMrGI5C78bio-ztKjPfx7s6PZs0DtZKKKZ5afUXvq9xP2B-rjoFbsv9VLEKBuBbEKfecjYCT7LQcRPYJ13g0CmjVaS9tjCvjdRltcK_SPYP6sMquK8dtQDIfhNXNm9q5u8pfcUxt_0Fe9gcre5YKf1qr_vHCEwwd35s8' // Remplacez par le token du service account
-        };
-
-        let autoRefreshEnabled = true;
-        let refreshInterval = null;
-
-        // Horloge
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('clock').textContent = 
-                now.toLocaleString('fr-FR', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
-        }
-        updateClock();
-        setInterval(updateClock, 1000);
-
-        function updateStatus(status, message) {
-            const dot = document.getElementById('statusDot');
-            const text = document.getElementById('statusText');
-            dot.className = 'status-dot ' + status;
-            text.textContent = message;
-        }
-
-        function showError(message) {
-            const container = document.getElementById('errorContainer');
-            container.innerHTML = `
-                <div class="error-box">
-                    <h3>❌ Erreur de connexion</h3>
-                    <p>${message}</p>
-                    <p style="margin-top: 10px; font-size: 0.9em;">
-                        Vérifiez que le token est correctement configuré dans le code.
-                    </p>
-                </div>
-            `;
-        }
-
-        async function fetchAPI(endpoint) {
-            const url = `${CONFIG.apiUrl}${endpoint}`;
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${CONFIG.token}`,
-                    'Accept': 'application/json'
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
+        });
 
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Message envoyé avec succès!');
+            this.reset();
+        });
 
-            return await response.json();
-        }
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
 
-        async function loadNodes() {
-            try {
-                const data = await fetchAPI('/api/v1/nodes');
-                document.getElementById('totalNodes').textContent = data.items.length;
-            } catch (error) {
-                document.getElementById('totalNodes').textContent = '?';
-            }
-        }
-
-        async function loadProjects() {
-            try {
-                const data = await fetchAPI('/api/v1/namespaces');
-                const projects = data.items;
-                
-                document.getElementById('totalProjects').textContent = projects.length;
-                
-                const container = document.getElementById('projectsList');
-                let html = '';
-                
-                projects.forEach(project => {
-                    const name = project.metadata.name;
-                    const status = project.status.phase;
-                    const created = new Date(project.metadata.creationTimestamp).toLocaleDateString('fr-FR');
-                    
-                    html += `
-                        <div class="project-card">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <strong>📁 ${name}</strong>
-                                <span class="badge ${status === 'Active' ? 'success' : 'warning'}">${status}</span>
-                            </div>
-                            <div style="font-size: 0.8em; opacity: 0.7; margin-top: 5px;">
-                                Créé: ${created}
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                container.innerHTML = html;
-            } catch (error) {
-                console.error('Erreur chargement projets:', error);
-            }
-        }
-
-        async function loadPods() {
-            try {
-                const data = await fetchAPI('/api/v1/pods');
-                const pods = data.items;
-                
-                // Statistiques
-                const total = pods.length;
-                const running = pods.filter(p => p.status.phase === 'Running').length;
-                const pending = pods.filter(p => p.status.phase === 'Pending').length;
-                const failed = pods.filter(p => p.status.phase === 'Failed').length;
-                
-                document.getElementById('totalPods').textContent = total;
-                document.getElementById('runningPods').textContent = running;
-                document.getElementById('pendingPods').textContent = pending;
-                document.getElementById('failedPods').textContent = failed;
-                
-                // Liste des pods
-                const container = document.getElementById('podsList');
-                let html = '';
-                
-                // Trier par status (failed, pending, running)
-                pods.sort((a, b) => {
-                    const order = { 'Failed': 0, 'Pending': 1, 'Running': 2 };
-                    return (order[a.status.phase] || 3) - (order[b.status.phase] || 3);
-                });
-                
-                pods.slice(0, 50).forEach(pod => { // Limiter à 50 pods pour la performance
-                    const status = pod.status.phase.toLowerCase();
-                    const name = pod.metadata.name;
-                    const namespace = pod.metadata.namespace;
-                    const node = pod.spec.nodeName || 'N/A';
-                    const ip = pod.status.podIP || 'N/A';
-                    const age = getAge(pod.metadata.creationTimestamp);
-                    
-                    const containers = pod.spec.containers.length;
-                    const readyContainers = pod.status.containerStatuses 
-                        ? pod.status.containerStatuses.filter(c => c.ready).length 
-                        : 0;
-                    
-                    html += `
-                        <div class="item-card ${status}">
-                            <div class="item-header">
-                                <span class="item-name">📦 ${name}</span>
-                                <span class="badge ${status === 'running' ? 'success' : status === 'pending' ? 'warning' : 'error'}">
-                                    ${status.toUpperCase()}
-                                </span>
-                            </div>
-                            <div class="item-details">
-                                <strong>Namespace:</strong> ${namespace}<br>
-                                <strong>Node:</strong> ${node}<br>
-                                <strong>IP:</strong> ${ip}<br>
-                                <strong>Conteneurs:</strong> ${readyContainers}/${containers}<br>
-                                <strong>Age:</strong> ${age}
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                if (pods.length > 50) {
-                    html += `<div class="item-card" style="border-left-color: #00d4ff;">
-                        <div style="text-align: center; opacity: 0.8;">
-                            ... et ${pods.length - 50} autres pods
-                        </div>
-                    </div>`;
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 1s ease forwards';
                 }
-                
-                container.innerHTML = html;
-            } catch (error) {
-                console.error('Erreur chargement pods:', error);
-            }
-        }
+            });
+        }, observerOptions);
 
-        async function loadDeployments() {
-            try {
-                const data = await fetchAPI('/apis/apps/v1/deployments');
-                const deployments = data.items;
-                
-                document.getElementById('totalDeployments').textContent = deployments.length;
-                
-                const container = document.getElementById('deploymentsList');
-                let html = '';
-                
-                deployments.forEach(deploy => {
-                    const name = deploy.metadata.name;
-                    const namespace = deploy.metadata.namespace;
-                    const replicas = deploy.spec.replicas || 0;
-                    const ready = deploy.status.readyReplicas || 0;
-                    const age = getAge(deploy.metadata.creationTimestamp);
-                    
-                    const isHealthy = ready === replicas;
-                    
-                    html += `
-                        <div class="item-card ${isHealthy ? '' : 'pending'}">
-                            <div class="item-header">
-                                <span class="item-name">🚀 ${name}</span>
-                                <span class="badge ${isHealthy ? 'success' : 'warning'}">
-                                    ${ready}/${replicas}
-                                </span>
-                            </div>
-                            <div class="item-details">
-                                <strong>Namespace:</strong> ${namespace}<br>
-                                <strong>Replicas:</strong> ${ready}/${replicas} prêts<br>
-                                <strong>Age:</strong> ${age}
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                container.innerHTML = html || '<p style="text-align: center; opacity: 0.6;">Aucun deployment</p>';
-            } catch (error) {
-                console.error('Erreur chargement deployments:', error);
-            }
-        }
+        document.querySelectorAll('.mission-card, .product-card, .service-card').forEach(el => {
+            observer.observe(el);
+        });
 
-        async function loadServices() {
-            try {
-                const data = await fetchAPI('/api/v1/services');
-                const services = data.items;
-                
-                document.getElementById('totalServices').textContent = services.length;
-                
-                const container = document.getElementById('servicesList');
-                let html = '';
-                
-                services.slice(0, 30).forEach(service => {
-                    const name = service.metadata.name;
-                    const namespace = service.metadata.namespace;
-                    const type = service.spec.type;
-                    const clusterIP = service.spec.clusterIP;
-                    const ports = service.spec.ports || [];
-                    const portsStr = ports.map(p => `${p.port}/${p.protocol}`).join(', ');
-                    
-                    html += `
-                        <div class="item-card">
-                            <div class="item-header">
-                                <span class="item-name">🌐 ${name}</span>
-                                <span class="badge info">${type}</span>
-                            </div>
-                            <div class="item-details">
-                                <strong>Namespace:</strong> ${namespace}<br>
-                                <strong>Cluster IP:</strong> ${clusterIP}<br>
-                                <strong>Ports:</strong> ${portsStr || 'N/A'}
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                if (services.length > 30) {
-                    html += `<div class="item-card" style="border-left-color: #00d4ff;">
-                        <div style="text-align: center; opacity: 0.8;">
-                            ... et ${services.length - 30} autres services
-                        </div>
-                    </div>`;
+        // Counter animation for stats
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
                 }
-                
-                container.innerHTML = html;
-            } catch (error) {
-                console.error('Erreur chargement services:', error);
-            }
+            }, 30);
         }
 
-        function getAge(timestamp) {
-            const now = new Date();
-            const created = new Date(timestamp);
-            const diff = now - created;
-            
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            
-            if (days > 0) return `${days}j ${hours}h`;
-            if (hours > 0) return `${hours}h ${minutes}m`;
-            return `${minutes}m`;
-        }
-
-        async function loadAllData() {
-            try {
-                updateStatus('loading', 'Chargement des données...');
-                document.getElementById('errorContainer').innerHTML = '';
-                
-                await Promise.all([
-                    loadNodes(),
-                    loadProjects(),
-                    loadPods(),
-                    loadDeployments(),
-                    loadServices()
-                ]);
-                
-                updateStatus('connected', 'Connecté - Données à jour');
-            } catch (error) {
-                console.error('Erreur:', error);
-                updateStatus('error', 'Erreur de connexion');
-                showError(error.message);
-            }
-        }
-
-        function toggleAutoRefresh() {
-            autoRefreshEnabled = !autoRefreshEnabled;
-            const btn = document.getElementById('autoRefreshBtn');
-            
-            if (autoRefreshEnabled) {
-                btn.textContent = '⏸️ Auto-refresh: ON';
-                startAutoRefresh();
-            } else {
-                btn.textContent = '▶️ Auto-refresh: OFF';
-                if (refreshInterval) {
-                    clearInterval(refreshInterval);
-                    refreshInterval = null;
+        const statsObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const h2 = entry.target.querySelector('h2');
+                    const text = h2.textContent;
+                    const number = parseInt(text.replace(/\D/g, ''));
+                    if (number) {
+                        animateCounter(h2, number);
+                    }
+                    statsObserver.unobserve(entry.target);
                 }
-            }
-        }
+            });
+        }, { threshold: 0.5 });
 
-        function startAutoRefresh() {
-            if (refreshInterval) clearInterval(refreshInterval);
-            refreshInterval = setInterval(() => {
-                if (autoRefreshEnabled) {
-                    loadAllData();
-                }
-            }, 30000); // 30 secondes
-        }
-
-        // Démarrage automatique
-        window.addEventListener('load', () => {
-            if (CONFIG.token === 'VOTRE_TOKEN_ICI') {
-                showError('Le token n\'est pas configuré. Modifiez la constante CONFIG.token dans le code.');
-                updateStatus('error', 'Configuration requise');
-            } else {
-                loadAllData();
-                startAutoRefresh();
-            }
+        document.querySelectorAll('.stat-item').forEach(el => {
+            statsObserver.observe(el);
         });
     </script>
 </body>
